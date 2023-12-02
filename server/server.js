@@ -1,41 +1,22 @@
-const express = require('express');
-const mysql = require('mysql2');
+// Load the AWS SDK for Node.js
+var AWS = require('aws-sdk');
+// Set the region
+AWS.config.update({region: 'us-east-1'});
 
+// Create DynamoDB service object
+var ddb = new AWS.DynamoDB();
 
+var params = {
+  TableName: 'Players',
+};
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root123',
-    insecureAuth: true 
+ddb.scan(params, function test(err, data) {
+  if (err) {
+    console.log("Error", err);
+  } else {
+    console.log(data);
+  }
+
 });
 
-db.connect((err) => {
-    if(err){
-        throw err;
-    }
-    console.log('MySQL Connected');
-})
-
-
-const app = express();
-
-app.get('/createdb', (req,res) => {
-    let sql = 'CREATE DATABASE IF NOT EXISTS server';
-    db.query(sql, (err, result) => {
-        if(err){
-            throw err;
-        }
-        console.log(result);
-        if (result.warningCount === 0) {
-            console.log('Database created or already exists');
-        } else {
-            console.log('Database creation skipped (already exists)');
-        }
-        res.send('Starting...');
-    });
-});
-app.listen('8000', () => {
-    console.log("Server started on port 8000")
-});
 
