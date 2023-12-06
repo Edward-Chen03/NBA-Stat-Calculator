@@ -71,7 +71,7 @@ function Table() {
                 </thead>
                 <tbody>
                     {paginatedData.map((item, index) => (
-                        <TableRow key={index} data={item}></TableRow>
+                        <TableRow propKey={index} data={item}></TableRow>
                     ))}
                 </tbody>
             </table>
