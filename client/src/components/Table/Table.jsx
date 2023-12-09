@@ -2,7 +2,9 @@
 import React, {useState} from 'react'
 import TableRow from "./TableRow.jsx"
 import TableHeader from "./TableHeader.jsx";
-import Dropdown from '../Helper/Dropdown.jsx';
+import PageDropdown from '../Helper/PageDropdown.jsx';
+import TableDropdown from '../Helper/TableDropdown.jsx';
+import TableSearch from '../Helper/TableSearch.jsx';
 import data from "../../data.json"
 
 
@@ -66,10 +68,20 @@ function Table() {
         <>
         <div className="flex flex-col w-full shadow-md bg-gray-500">
             <div className="flex flex-row justify-end text-xs items-end text-gray-700 uppercase bg-gray-50">
-                <Dropdown startPage = {startPage} endPage = {endPage} setRowsPerPage = {setRowsPerPage} setPageNumber = {setPageNumber}></Dropdown>
+                <div className="px-2 py-3 mr-auto self-center">
+
+                <form>
+                    <div className="flex shrink-0">
+                        <TableDropdown></TableDropdown>
+                        <TableSearch></TableSearch>
+                    </div>
+                </form>
+
+                </div>
+                <PageDropdown startPage = {startPage} endPage = {endPage} setRowsPerPage = {setRowsPerPage} setPageNumber = {setPageNumber}></PageDropdown>
                 <div className='text-black w-fit px-1 py-1 self-center text-center lowercase'>of {sortedData.length}</div>
-                <button className='px-2 py-3' onClick={() => handlePageChange(pageNumber - 1)}> &lt; </button>
-                <button className='px-2 py-3' onClick={() => handlePageChange(pageNumber + 1)}> &gt; </button>
+                <button className='px-2 py-3 self-center' onClick={() => handlePageChange(pageNumber - 1)}> &lt; </button>
+                <button className='px-2 py-3 self-center' onClick={() => handlePageChange(pageNumber + 1)}> &gt; </button>
             </div>
             <table className="w-full h-fit text-sm text-left rtl:text-right text-gray-500">
                 <thead className="text-xs justify-between text-gray-700 uppercase bg-gray-50">
