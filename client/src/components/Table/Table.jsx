@@ -2,6 +2,9 @@
 import React, {useState} from 'react'
 import TableRow from "./TableRow.jsx"
 import TableHeader from "./TableHeader.jsx";
+import PageDropdown from './PageDropdown.jsx';
+import TableDropdown from './TableDropdown.jsx';
+import TableSearch from './TableSearch.jsx';
 import data from "../../data.json"
 
 
@@ -17,7 +20,7 @@ function Table() {
     .map(dataItem => header.map(headerItem => dataItem[headerItem]));
 
     // pages
-    const rowsPerPage = 10
+    const [rowsPerPage, setRowsPerPage] = useState(5)
     const [pageNumber, setPageNumber] = useState(1)
     const handlePageChange = (newPage) => {
         if (newPage > 0 && newPage <= totalPages) {
@@ -25,7 +28,37 @@ function Table() {
         }
     };
     let firstIndex = (pageNumber-1) * rowsPerPage
-    let lastIndex = firstIndex + rowsPerPage + 1
+    let lastIndex = firstIndex + rowsPerPage
+
+
+    // filtering data by search query
+    let search = 3
+    const [filteredData, setFilteredData] = useState(arrangedArrayOfData)
+    function filterData(data, searchQuery) {
+        if (searchQuery == "") {
+            return data;
+        }
+        let result = [];
+
+        function searchArray(array) {
+            for (let i=0; i < array.length; i++) {
+                const element = array[i];
+                if (Array.isArray(element)) {
+                    searchArray(element);
+                } else if (typeof(element) === typeof(searchQuery)) {
+                    
+                    const stringValue = String(element).toLowerCase();
+                    if (stringValue.includes(String(searchQuery).toLowerCase())) {
+                        result.push(array);
+                        break;
+                    }
+                }
+            }
+        }
+
+        searchArray(data);
+        setFilteredData(result);
+    }
 
     // sorting algo for columns
     const [sortConfig, setSortConfig] = useState({column: null, direction:'asc'})
@@ -35,7 +68,8 @@ function Table() {
           direction: sortConfig.key === column && sortConfig.direction === 'asc' ? 'desc' : 'asc',
         });
       };
-    let sortedData = [...arrangedArrayOfData].sort((a, b) => {
+
+    let sortedData = [...filteredData].sort((a, b) => {
     if (sortConfig.key) {
         const index = header.indexOf(sortConfig.key);
         const keyA = a[index];
@@ -52,18 +86,33 @@ function Table() {
     return 0;
     });
 
+    // numbering pages
+    const totalRows = sortedData.length
+    const totalPages = Math.ceil(totalRows / rowsPerPage)
+    let paginatedData = sortedData.slice(firstIndex, lastIndex + 1)
+    
 
-    const totalPages = Math.ceil(sortedData.length / 10)
-    let paginatedData = sortedData.slice(firstIndex, lastIndex)
-
+    let startPage = Math.max(1, firstIndex + (pageNumber))
+    let endPage = Math.min(lastIndex + (pageNumber), totalRows)
 
     return (
         <>
         <div className="flex flex-col w-full shadow-md bg-gray-500">
             <div className="flex flex-row justify-end text-xs items-end text-gray-700 uppercase bg-gray-50">
-                <button className='px-6 py-3' onClick={() => handlePageChange(pageNumber - 1)}>Previous</button>
-                <div className='text-black w-6 px-1 py-1 self-center text-center'>{pageNumber}/{totalPages}</div>
-                <button className='px-6 py-3' onClick={() => handlePageChange(pageNumber + 1)}>Next</button>
+                <div className="px-2 py-3 mr-auto self-center">
+
+                <div>
+                    <div className="flex shrink-0">
+                        <TableDropdown></TableDropdown>
+                        <TableSearch filterData={filterData} data={arrangedArrayOfData}></TableSearch>
+                    </div>
+                </div>
+
+                </div>
+                <PageDropdown startPage = {startPage} endPage = {endPage} setRowsPerPage = {setRowsPerPage} setPageNumber = {setPageNumber}></PageDropdown>
+                <div className='text-black w-fit px-1 py-1 self-center text-center lowercase'>of {sortedData.length}</div>
+                <button className='px-2 py-3 self-center' onClick={() => handlePageChange(pageNumber - 1)}> &lt; </button>
+                <button className='px-2 py-3 self-center' onClick={() => handlePageChange(pageNumber + 1)}> &gt; </button>
             </div>
             <table className="w-full h-fit text-sm text-left rtl:text-right text-gray-500">
                 <thead className="text-xs justify-between text-gray-700 uppercase bg-gray-50">
@@ -75,6 +124,7 @@ function Table() {
                     ))}
                 </tbody>
             </table>
+
         </div>
 
         </>
