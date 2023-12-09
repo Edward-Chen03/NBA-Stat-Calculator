@@ -2,9 +2,9 @@
 import React, {useState} from 'react'
 import TableRow from "./TableRow.jsx"
 import TableHeader from "./TableHeader.jsx";
-import PageDropdown from '../Helper/PageDropdown.jsx';
-import TableDropdown from '../Helper/TableDropdown.jsx';
-import TableSearch from '../Helper/TableSearch.jsx';
+import PageDropdown from './PageDropdown.jsx';
+import TableDropdown from './TableDropdown.jsx';
+import TableSearch from './TableSearch.jsx';
 import data from "../../data.json"
 
 
@@ -30,6 +30,36 @@ function Table() {
     let firstIndex = (pageNumber-1) * rowsPerPage
     let lastIndex = firstIndex + rowsPerPage
 
+
+    // filtering data by search query
+    let search = 3
+    const [filteredData, setFilteredData] = useState(arrangedArrayOfData)
+    function filterData(data, searchQuery) {
+        if (searchQuery == "") {
+            return data;
+        }
+        let result = [];
+
+        function searchArray(array) {
+            for (let i=0; i < array.length; i++) {
+                const element = array[i];
+                if (Array.isArray(element)) {
+                    searchArray(element);
+                } else if (typeof(element) === typeof(searchQuery)) {
+                    
+                    const stringValue = String(element).toLowerCase();
+                    if (stringValue.includes(String(searchQuery).toLowerCase())) {
+                        result.push(array);
+                        break;
+                    }
+                }
+            }
+        }
+
+        searchArray(data);
+        setFilteredData(result);
+    }
+
     // sorting algo for columns
     const [sortConfig, setSortConfig] = useState({column: null, direction:'asc'})
     const handleSort = (column) => {
@@ -38,7 +68,8 @@ function Table() {
           direction: sortConfig.key === column && sortConfig.direction === 'asc' ? 'desc' : 'asc',
         });
       };
-    let sortedData = [...arrangedArrayOfData].sort((a, b) => {
+
+    let sortedData = [...filteredData].sort((a, b) => {
     if (sortConfig.key) {
         const index = header.indexOf(sortConfig.key);
         const keyA = a[index];
@@ -70,12 +101,12 @@ function Table() {
             <div className="flex flex-row justify-end text-xs items-end text-gray-700 uppercase bg-gray-50">
                 <div className="px-2 py-3 mr-auto self-center">
 
-                <form>
+                <div>
                     <div className="flex shrink-0">
                         <TableDropdown></TableDropdown>
-                        <TableSearch></TableSearch>
+                        <TableSearch filterData={filterData} data={arrangedArrayOfData}></TableSearch>
                     </div>
-                </form>
+                </div>
 
                 </div>
                 <PageDropdown startPage = {startPage} endPage = {endPage} setRowsPerPage = {setRowsPerPage} setPageNumber = {setPageNumber}></PageDropdown>

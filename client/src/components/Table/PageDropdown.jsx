@@ -26,10 +26,7 @@ function PageDropdown(props) {
           window.removeEventListener("click", handleWindowClick);
         };
     }, []);
-    window.onclick = function(event) {
-        
-    }
-
+    
     return (
         <div id="pageDropdown" className="self-center">
             <button className="w-fit h-fit text-gray-600 rounded-lg text-xs px-1 py-1.5 flex " type="button" onClick={myFunction}>
