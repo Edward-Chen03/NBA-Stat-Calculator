@@ -32,7 +32,6 @@ function Table() {
 
 
     // filtering data by search query
-    let search = 3
     const [filteredData, setFilteredData] = useState(arrangedArrayOfData)
     function filterData(data, searchQuery) {
         if (searchQuery == "") {
@@ -92,7 +91,7 @@ function Table() {
     let paginatedData = sortedData.slice(firstIndex, lastIndex + 1)
     
 
-    let startPage = Math.max(1, firstIndex + (pageNumber))
+    let startPage = Math.max(0, firstIndex + (pageNumber))
     let endPage = Math.min(lastIndex + (pageNumber), totalRows)
 
     return (
