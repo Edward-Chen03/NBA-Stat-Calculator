@@ -9,12 +9,12 @@ const readline = require('readline');
 AWS.config.update({ region: 'us-east-1' });
 
 const app = express();
+const cors = require('cors');
+app.use(express.json());
+app.use(cors());
 const port = 3000;
 
 var ddb = new AWS.DynamoDB.DocumentClient();
-var params = {
-  TableName: 'Test',
-};
 
 
 
@@ -22,25 +22,41 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.get('/get-data/:name', (req, res) => {
-  const { name } = req.params;
-
+app.post('/calculate', (req, res) => {
+  const { name, calculate } = req.body;
   const params = {
     TableName: 'Test',
     Key: {
+      'id': 47,
       'name': name,
-    },
+    }
   };
-
   ddb.get(params, (err, data) => {
     if (err) {
-      console.error("Error", err);
-      res.status(500).json({ error: 'Error fetching data from DynamoDB' });
+      console.error('Unable to read item. Error JSON:', JSON.stringify(err, null, 2));
     } else {
-      console.log("Success", data);
-      res.json(data.Item);
+      const retrievedItem = data.Item;
+      let result;
+
+      switch (calculate) {
+        case "TS%":
+          result = retrievedItem.PTS / (2 * (Number(retrievedItem.FGA) + (0.44 * Number(retrievedItem.FTA)))) * 100;
+          break;
+
+        default:
+          return res.status(400).json({ error: 'Invalid' });
+      }
+      res.json({ result });
     }
+
+
   });
+
 });
 
 
+
+
+
+
+//create multiple tables and base them on formula
