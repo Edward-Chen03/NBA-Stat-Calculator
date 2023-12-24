@@ -38,18 +38,18 @@ app.post('/calculate', (req, res) => {
       const retrievedItem = data.Item;
       let result;
 
-      switch(calculate){
+      switch (calculate) {
         case "TS%":
-          result = retrievedItem.PTS /( 2 *(Number(retrievedItem.FGA) + (0.44 * Number(retrievedItem.FTA)))) * 100;
+          result = retrievedItem.PTS / (2 * (Number(retrievedItem.FGA) + (0.44 * Number(retrievedItem.FTA)))) * 100;
           break;
 
         default:
           return res.status(400).json({ error: 'Invalid' });
-  }
-    res.json({ result });
+      }
+      res.json({ result });
     }
-  
-  
+
+
   });
 
 });
