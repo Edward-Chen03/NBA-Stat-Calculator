@@ -22,6 +22,28 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+app.post('/basictable', (req, res) => {
+  
+  const params = {
+    TableName: 'Test',
+    ProjectionExpression: '#n, Team, PTS, TRB, AST', 
+    ExpressionAttributeNames: {
+      '#n': 'name',
+    },
+  };
+  
+  ddb.scan(params, (err, data) => {
+    if(err){
+      console.error("Error scanning!", err);
+      res.status(500).send("Internal Error");
+    }else{
+      res.json(data.Items);
+    }
+  
+  })
+
+});
+
 app.post('/calculate', (req, res) => {
   const { name, calculate } = req.body;
   const params = {

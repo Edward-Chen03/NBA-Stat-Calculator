@@ -15,6 +15,7 @@ function Table() {
     // data and data formatting
     const header = data["header"]
     const arrayOfJSON = data["data"]
+    
     let arrangedArrayOfData = arrayOfJSON
     .filter(dataItem => header.some(headerItem => Object.keys(dataItem).includes(headerItem)))
     .map(dataItem => header.map(headerItem => dataItem[headerItem]));
