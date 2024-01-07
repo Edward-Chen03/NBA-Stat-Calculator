@@ -10,12 +10,12 @@ import data from "../../data.json"
 
 // Eventually pagination will be implemented where a GET request ON already sorted data will forgo the need to import all the data, then sort it.  
 
-function Table() {
+function Table(data) {
     
     // data and data formatting
     const [tableType, setTableType] = useState("Table 1")
-    const header = data["header"]
-    const arrayOfJSON = data["data"]
+    const header = ["name", "AST", "TRB", "Team", "PTS"]
+    const arrayOfJSON = data
     
     let arrangedArrayOfData = arrayOfJSON
     .filter(dataItem => header.some(headerItem => Object.keys(dataItem).includes(headerItem)))
@@ -91,6 +91,7 @@ function Table() {
     const totalRows = sortedData.length
     const totalPages = Math.ceil(totalRows / rowsPerPage)
     let paginatedData = sortedData.slice(firstIndex, lastIndex + 1) // this will be replaced with a function that takes whatever is neccessary from server
+    // let paginatedData = getData(whatTable?, start_index, end_index, sort_order, sorted_by) 
     
 
     let startPage = Math.max(0, firstIndex + (pageNumber))
