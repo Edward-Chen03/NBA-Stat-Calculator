@@ -90,6 +90,7 @@ function Table() {
     const totalRows = sortedData.length
     const totalPages = Math.ceil(totalRows / rowsPerPage)
     let paginatedData = sortedData.slice(firstIndex, lastIndex + 1) // this will be replaced with a function that takes whatever is neccessary from server
+    // let paginatedData = getData(whatTable?, start_index, end_index, sort_order, sorted_by) 
     
 
     let startPage = Math.max(0, firstIndex + (pageNumber))
