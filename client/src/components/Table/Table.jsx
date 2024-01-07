@@ -10,12 +10,12 @@ import data from "../../data.json"
 
 // Eventually pagination will be implemented where a GET request ON already sorted data will forgo the need to import all the data, then sort it.  
 
-function Table(data) {
+function Table(props) {
     
     // data and data formatting
     const [tableType, setTableType] = useState("Table 1")
     const header = ["name", "AST", "TRB", "Team", "PTS"]
-    const arrayOfJSON = data
+    const arrayOfJSON = props.data
     
     let arrangedArrayOfData = arrayOfJSON
     .filter(dataItem => header.some(headerItem => Object.keys(dataItem).includes(headerItem)))
