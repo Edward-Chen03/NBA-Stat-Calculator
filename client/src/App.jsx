@@ -10,12 +10,9 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://localhost:3000/calculate', {
-          name: 'Devin Booker',
-          calculate: 'TS%'
+        const response = await axios.post('http://localhost:3000/basictable', {
         });
 
-        
         setData(response.data);
       } catch (error) {
         
@@ -25,6 +22,7 @@ function App() {
 
     fetchData();
   }, []); 
+  
   console.log(data);
   return (
     <>
