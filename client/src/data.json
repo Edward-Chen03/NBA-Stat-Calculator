@@ -1,4 +1,6 @@
+
 {   "header":["Player", "Team", "Points", "Rebounds", "Placeholder", "Turnovers"],
+
     "data": [
         {"Player": "Eddie", "Team": "Juul Gang", "Points": 35, "Rebounds": 20, "Placeholder": ""},
         {"Player": "Marcus", "Team": "Jimmys House", "Points": 10, "Placeholder": "", "Rebounds": 21},
