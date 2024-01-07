@@ -1,5 +1,5 @@
 
-{   "header":["Player", "Team", "Points", "Rebounds", "Placeholder", "Turnovers"],
+{   "header":["name", "AST", "TRB", "Team", "PTS"],
 
     "data": [
         {"Player": "Eddie", "Team": "Juul Gang", "Points": 35, "Rebounds": 20, "Placeholder": ""},

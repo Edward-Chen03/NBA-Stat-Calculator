@@ -31,7 +31,7 @@ function App() {
     </div>
     <div className="bg-gray-500 w-full h-fit min-h-screen">
       <div className="mx-5 pt-52 h-fit">
-        <Table></Table>
+        <Table data={data}></Table>
       </div>
     </div>
     <div className="bg-gray-500 w-full h-52"></div>
