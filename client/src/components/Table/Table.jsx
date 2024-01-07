@@ -13,6 +13,7 @@ import data from "../../data.json"
 function Table() {
     
     // data and data formatting
+    const [tableType, setTableType] = useState("Table 1")
     const header = data["header"]
     const arrayOfJSON = data["data"]
     let arrangedArrayOfData = arrayOfJSON
@@ -88,7 +89,7 @@ function Table() {
     // numbering pages
     const totalRows = sortedData.length
     const totalPages = Math.ceil(totalRows / rowsPerPage)
-    let paginatedData = sortedData.slice(firstIndex, lastIndex + 1)
+    let paginatedData = sortedData.slice(firstIndex, lastIndex + 1) // this will be replaced with a function that takes whatever is neccessary from server
     
 
     let startPage = Math.max(0, firstIndex + (pageNumber))
@@ -102,7 +103,7 @@ function Table() {
 
                 <div>
                     <div className="flex shrink-0">
-                        <TableDropdown></TableDropdown>
+                        <TableDropdown setTableType={setTableType}></TableDropdown>
                         <TableSearch filterData={filterData} data={arrangedArrayOfData}></TableSearch>
                     </div>
                 </div>

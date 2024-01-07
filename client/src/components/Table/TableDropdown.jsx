@@ -50,16 +50,16 @@ function TableDropdown(props) {
             <div id="myTableDropdown" className="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow flex-shrink-0 w-fit pr-2.5 hidden">
                 <ul className="py-2 text-sm text-gray-700">
                 <li>
-                    <button type="button" className="inline-flex w-fit px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Table #1</button>
+                    <button type="button" onClick={props.setTableType} className="inline-flex w-fit px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Table #1</button>
                 </li>
                 <li>
-                    <button type="button" className="inline-flex w-fit px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Table #2</button>
+                    <button type="button" onClick={props.setTableType} className="inline-flex w-fit px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Table #2</button>
                 </li>
                 <li>
-                    <button type="button" className="inline-flex w-fit px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Table #3</button>
+                    <button type="button" onClick={props.setTableType} className="inline-flex w-fit px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Table #3</button>
                 </li>
                 <li>
-                    <button type="button" className="inline-flex w-fit px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Table #4</button>
+                    <button type="button" onClick={props.setTableType} className="inline-flex w-fit px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Table #4</button>
                 </li>
                 </ul>
             </div>
