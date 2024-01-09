@@ -1,11 +1,11 @@
 
-
 //const { ddb } = require('./init'); 
 process.env.AWS_SDK_JS_SUPPRESS_MAINTENANCE_MODE_MESSAGE = '1';
 import AWS from 'aws-sdk';
 import express from 'express';
 import fs from 'fs';
 import readline from 'readline';
+import path from 'path';
 AWS.config.update({ region: 'us-east-1' });
 
 const app = express();
