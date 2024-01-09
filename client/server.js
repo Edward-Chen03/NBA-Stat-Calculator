@@ -16,7 +16,11 @@ const port = 3000;
 
 var ddb = new AWS.DynamoDB.DocumentClient();
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
