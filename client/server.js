@@ -22,6 +22,14 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+app.use(express.static(path.join(__dirname, '../src')));
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../src', 'index.html'));
+});
+
+
 app.post('/basictable', (req, res) => {
   
   const params = {
