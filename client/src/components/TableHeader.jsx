@@ -6,7 +6,7 @@ function TableHeader(props) {
     return(
         <tr>
             {header_data.map((header_col, index) => (
-                <th key={index} scope="col" className="px-6 py-3">
+                <th key={index} scope="col" className="px-6 py-3 w-40 box-border">
                     <button 
                     className="relative inset-0 p-1 cursor-pointer"
                     onClick={() => props.onSort(header_col)}

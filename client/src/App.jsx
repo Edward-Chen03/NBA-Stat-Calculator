@@ -17,7 +17,7 @@ function App() {
     };
 
     fetchData();
-  }, []); 
+  }, []);
   console.log(data);
   useEffect(() => {
     console.log(data);
@@ -25,15 +25,22 @@ function App() {
 
   return (
     <>
-      <div className="flex bg-gray-500 justify-center align-middle items-center w-full h-screen">
-        <h1 className="text-white text-5xl">Hello</h1>
+      <span className='bg-neutral100 flex justify-between items-center pt-10 px-28 w-full h-[10%]'>
+        <span className='text-primary font-sans text-3xl'>Logo and Name</span>
+        <span className='text-black font-sans text-3xl'>Start Now</span>
+      </span>
+      <div className="bg-neutral100 text-center w-full h-screen pt-20">
+        <h1 className="text-primary text-xl">Stats for NBA</h1>
+        <h1 className="text-neutral800 text-5xl pt-2">Stats for NBA</h1>
+        <h2 className='text-neutral600 text-xl text-wrap break-words w-1/2 mx-auto pt-5'>Description blah blah blah blah blah blah blah blah blah blah blah blah  
+          blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</h2>
       </div>
-      <div className="bg-gray-500 w-full h-fit min-h-screen">
+      <div className="bg-neutral200 w-full h-fit min-h-screen">
         <div className="mx-5 pt-52 h-fit">
           <Table data={data} error={error} />
         </div>
       </div>
-      <div className="bg-gray-500 w-full h-52"></div>
+      <span className="bg-neutral100 w-full h-52"></span>
     </>
   );
 }
