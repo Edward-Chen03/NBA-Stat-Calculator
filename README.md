@@ -1,5 +1,14 @@
-# NBA-Stat-Calculator
+## NBA Stat Calculator Website (Deploayed) - IN Progress
+
+Link:
+
+## Features
+
+## Instructions
+
+## Project Specifications
 
 
-# IN PROGRESS
-- Running undeployed website, run nodemon server.js, npm run dev 
+
+
+
