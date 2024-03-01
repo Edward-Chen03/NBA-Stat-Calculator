@@ -1,4 +1,4 @@
-## NBA Stat Calculator Website (Deploayed) - IN Progress
+## NBA Stat Calculator Website (Deployed) - IN Progress
 
 Link:
 
