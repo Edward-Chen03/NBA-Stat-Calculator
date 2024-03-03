@@ -27,7 +27,11 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.post('/basictable', (req, res) => {
+
+
+// Database Table
+
+app.post('/AllPlayerTable', (req, res) => {
   
   const params = {
     TableName: 'Test',
@@ -48,6 +52,10 @@ app.post('/basictable', (req, res) => {
   })
 
 });
+
+
+
+// Specific Calculations
 
 app.post('/calculate', (req, res) => {
   const { name, calculate } = req.body;
