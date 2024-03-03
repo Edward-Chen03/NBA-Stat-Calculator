@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('https://nba-stat-calculator.onrender.com/basictable', {});
+        const response = await axios.post('https://nba-stat-calculator-server.onrender.com/basictable', {});
         setData(response.data);
       } catch (error) {
         setError(error.message || 'An error occurred');
