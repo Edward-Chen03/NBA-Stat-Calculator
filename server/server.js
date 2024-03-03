@@ -7,6 +7,7 @@ const express = require('express');
 const fs = require('fs');
 const readline = require('readline');
 
+console.log(process.env.AWS_ACCESS_KEY_ID)
 AWS.config.update({ 
   
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
