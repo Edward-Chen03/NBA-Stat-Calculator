@@ -45,6 +45,7 @@ function App() {
         </div>
       </div>
       <span className="bg-neutral100 w-full h-52"></span>
+      </div>
     </>
   );
 }
