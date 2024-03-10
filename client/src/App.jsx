@@ -34,6 +34,7 @@ function App() {
         <h1 className="text-neutral800 text-5xl pt-2">Stats for NBA</h1>
         <h2 className='text-neutral600 text-xl text-wrap break-words w-1/2 mx-auto pt-5'>Description blah blah blah blah blah blah blah blah blah blah blah blah  
           blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</h2>
+      </div>
       <div class = "homePageHeader">
         <h1 className="text-white text-5xl">NBA Statistics Calculator</h1>
       </div>
