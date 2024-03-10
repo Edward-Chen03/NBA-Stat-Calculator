@@ -31,27 +31,46 @@ app.listen(port, () => {
 
 // Database Table
 
-app.post('/AllPlayerTable', (req, res) => {
-  
+function fetchDataFromDynamoDB(callback) {
   const params = {
-    TableName: 'Test',
-    ProjectionExpression: '#n, Team, PTS, TRB, AST', 
-    ExpressionAttributeNames: {
-      '#n': 'name',
-    },
+      TableName: 'Test',
+      ProjectionExpression: '#n, Team, PTS, TRB, AST', 
+      ExpressionAttributeNames: {
+          '#n': 'name',
+      },
   };
   
   ddb.scan(params, (err, data) => {
-    if(err){
-      console.error("Error scanning!", err);
-      res.status(500).send("Internal Error");
-    }else{
-      res.json(data.Items);
-    }
-  
-  })
+      if (err) {
+          console.error("Error scanning DynamoDB:", err);
+          callback(err, null);
+      } else {
+          callback(null, data.Items);
+      }
+  });
+}
 
+
+app.post('/AllPlayerTable', (req, res) => {
+  fetchDataFromDynamoDB((err, items) => {
+      if (err) {
+          res.status(500).send("Internal Error");
+      } else {
+          res.json(items);
+      }
+  });
 });
+
+
+setInterval(() => {
+  fetchDataFromDynamoDB((err, items) => {
+      if (err) {
+          console.error("Error fetching data from DynamoDB:", err);
+      } else {
+          console.log("Fetch Call Made to AWS");
+      }
+  });
+},  10 * 60 * 1000);
 
 
 
