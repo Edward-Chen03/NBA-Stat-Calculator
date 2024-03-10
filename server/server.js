@@ -1,4 +1,6 @@
 
+
+//const { ddb } = require('./init'); 
 process.env.AWS_SDK_JS_SUPPRESS_MAINTENANCE_MODE_MESSAGE = '1';
 const AWS = require('aws-sdk');
 const express = require('express');
@@ -24,6 +26,10 @@ var ddb = new AWS.DynamoDB.DocumentClient();
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+
+// Database Table
 
 function fetchDataFromDynamoDB(callback) {
   const params = {
@@ -66,6 +72,10 @@ setInterval(() => {
   });
 },  10 * 60 * 1000);
 
+
+
+
+
 app.post('/calculate', (req, res) => {
   const { name, calculate } = req.body;
   const params = {
@@ -99,8 +109,3 @@ app.post('/calculate', (req, res) => {
 });
 
 
-
-
-
-
-//create multiple tables and base them on formula
