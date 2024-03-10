@@ -1,6 +1,4 @@
 
-
-//const { ddb } = require('./init'); 
 process.env.AWS_SDK_JS_SUPPRESS_MAINTENANCE_MODE_MESSAGE = '1';
 const AWS = require('aws-sdk');
 const express = require('express');
@@ -27,54 +25,27 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-
-
-// Database Table
-
-function fetchDataFromDynamoDB(callback) {
+app.post('/AllPlayerTable', (req, res) => {
+  
   const params = {
-      TableName: 'Test',
-      ProjectionExpression: '#n, Team, PTS, TRB, AST', 
-      ExpressionAttributeNames: {
-          '#n': 'name',
-      },
+    TableName: 'Test',
+    ProjectionExpression: '#n, Team, PTS, TRB, AST', 
+    ExpressionAttributeNames: {
+      '#n': 'name',
+    },
   };
   
   ddb.scan(params, (err, data) => {
-      if (err) {
-          console.error("Error scanning DynamoDB:", err);
-          callback(err, null);
-      } else {
-          callback(null, data.Items);
-      }
-  });
-}
+    if(err){
+      console.error("Error scanning!", err);
+      res.status(500).send("Internal Error");
+    }else{
+      res.json(data.Items);
+    }
+  
+  })
 
-
-app.post('/AllPlayerTable', (req, res) => {
-  fetchDataFromDynamoDB((err, items) => {
-      if (err) {
-          res.status(500).send("Internal Error");
-      } else {
-          res.json(items);
-      }
-  });
 });
-
-
-setInterval(() => {
-  fetchDataFromDynamoDB((err, items) => {
-      if (err) {
-          console.error("Error fetching data from DynamoDB:", err);
-      } else {
-          console.log("Fetch Call Made to AWS");
-      }
-  });
-},  10 * 60 * 1000);
-
-
-
-// Specific Calculations
 
 app.post('/calculate', (req, res) => {
   const { name, calculate } = req.body;
