@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import TableRow from "./TableRow.jsx"
-import TableHeader from "./TableHeader.jsx";
-import PageDropdown from './PageDropdown.jsx';
-import TableDropdown from './TableDropdown.jsx';
-import TableSearch from './TableSearch.jsx';
-import dataA from "../data.json"
+import TableRow from "../TableRow.jsx"
+import TableHeader from "../TableHeader.jsx";
+import PageDropdown from '../PageDropdown.jsx';
+import TableSearch from '../TableSearch.jsx';
+import TableFilter from '../TableFilter.jsx';
+import dataA from "./data.json"
 
 
 // Eventually pagination will be implemented where a GET request ON already sorted data will forgo the need to import all the data, then sort it.  
@@ -110,13 +110,21 @@ function Table({ data, error }) {
         <>
         <div className="flex flex-col w-full shadow-md bg-neutral700 border-8 rounded-md">
             <div className="flex flex-row justify-end text-xs items-end text-gray-700 uppercase bg-gray-50">
-                <div className="px-2 py-3 mr-auto self-center">
+                <div className="px-2 py-3 mr-auto self-center w-[80%]">
 
-                <div>
-                    <div className="flex shrink-0">
-                        <TableDropdown setTableType={setTableType}></TableDropdown>
+                <div className='flex flex-row justify-between pl-1'>
+                    <span className="flex border">
                         <TableSearch filterData={filterData} data={arrangedArrayOfData}></TableSearch>
-                    </div>
+                    </span>
+                    <span className='flex justify-center align-middle items-center'>
+                        <TableFilter label="Filter #1"/>
+                    </span>
+                    <span>
+                        <TableFilter label="Filter #2"/>
+                    </span>
+                    <span>
+                        <TableFilter label="Filter #3"/>
+                    </span>
                 </div>
 
                 </div>

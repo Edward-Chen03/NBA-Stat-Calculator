@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Table from "./components/Table.jsx";
+import Table from "./components/CustomTable/CustomTable.jsx";
 import axios from 'axios';
 
 function App() {
