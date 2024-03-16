@@ -6,6 +6,7 @@ import PageDropdown from '../PageDropdown.jsx';
 import TableSearch from '../TableSearch.jsx';
 import TableFilter from '../TableFilter.jsx';
 import dataA from "./data.json"
+import {areAllValuesNull, nestedIntersection} from "../../Helper.jsx";
 
 
 // Eventually pagination will be implemented where a GET request ON already sorted data will forgo the need to import all the data, then sort it.  
@@ -21,8 +22,6 @@ function Table({ data, error }) {
     // data and data formatting
     const [tableType, setTableType] = useState("Table 1")
     const header = dataA["header"];
-
-    console.log(arrayOfJSON)
     
     let arrangedArrayOfData = arrayOfJSON?.filter(dataItem =>
         header.some(headerItem => Object.keys(dataItem).includes(headerItem))
@@ -42,15 +41,21 @@ function Table({ data, error }) {
 
     const originalData = arrangedArrayOfData
 
+    // filters are from the TableFilter
+    const [filters, setFilters] = useState({})
+
     // filtering data by search query
+    const [searchedData, setSearchedData] = useState(arrangedArrayOfData)
     const [filteredData, setFilteredData] = useState(arrangedArrayOfData)
-    function filterData(data, searchQuery) {
+    function applySearch(data, searchQuery) {
         if (searchQuery == "") {
             setFilteredData(originalData)
             return data;
         }
+
         let result = [];
 
+        // searches for rows that match the search query
         function searchArray(array) {
             for (let i=0; i < array.length; i++) {
                 const element = array[i];
@@ -68,8 +73,34 @@ function Table({ data, error }) {
         }
 
         searchArray(data);
-        setFilteredData(result);
+        setSearchedData(result);
     }
+
+    // filtering by the filters passed in 
+    function applyFilters(array, filters) {
+        if (areAllValuesNull(filters)) {
+            return originalData;
+        }
+        for (const key in filters) {
+            const filter = filters[key];
+            if (filter && filter.tag === "team") {
+                array = array.filter(subArray => subArray.some(element => element === filter.name));
+            }
+        }
+
+        return array;
+    }
+
+    useEffect(() => {
+        setFilteredData(applyFilters(arrangedArrayOfData, filters));
+    }, [filters]);
+
+
+    const [combinedData, setCombinedData] = useState([])
+
+    useEffect(() => {
+        setCombinedData(nestedIntersection(searchedData, filteredData));
+    }, [searchedData, filteredData]);
 
     // sorting algo for columns
     const [sortConfig, setSortConfig] = useState({column: null, direction:'asc'})
@@ -80,12 +111,11 @@ function Table({ data, error }) {
         });
       };
 
-    let sortedData = [...filteredData].sort((a, b) => {
+    let sortedData = [...combinedData].sort((a, b) => {
     if (sortConfig.key) {
         const index = header.indexOf(sortConfig.key);
         const keyA = a[index];
         const keyB = b[index];
-        console.log(keyA)
 
         if (sortConfig.direction === 'asc') {
             return keyA > keyB ? 1 : -1;
@@ -114,16 +144,16 @@ function Table({ data, error }) {
 
                 <div className='flex flex-row justify-between pl-1'>
                     <span className="flex border">
-                        <TableSearch filterData={filterData} data={arrangedArrayOfData}></TableSearch>
+                        <TableSearch filterData={applySearch} data={arrangedArrayOfData}></TableSearch>
                     </span>
                     <span className='flex justify-center align-middle items-center'>
-                        <TableFilter label="Filter #1"/>
+                        <TableFilter label="Filter #1" id={1} setFilter={setFilters}/>
                     </span>
                     <span>
-                        <TableFilter label="Filter #2"/>
+                        <TableFilter label="Filter #2" id={2} setFilter={setFilters}/>
                     </span>
                     <span>
-                        <TableFilter label="Filter #3"/>
+                        <TableFilter label="Filter #3" id={3} setFilter={setFilters}/>
                     </span>
                 </div>
 

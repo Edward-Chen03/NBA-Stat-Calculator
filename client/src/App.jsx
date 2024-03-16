@@ -18,9 +18,7 @@ function App() {
 
     fetchData();
   }, []);
-  console.log(data);
   useEffect(() => {
-    console.log(data);
   }, [data]);
 
   return (

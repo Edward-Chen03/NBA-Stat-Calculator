@@ -21,8 +21,6 @@ function Table({ data, error }) {
     // data and data formatting
     const [tableType, setTableType] = useState("Table 1")
     const header = dataA["header"];
-
-    console.log(arrayOfJSON)
     
     let arrangedArrayOfData = arrayOfJSON?.filter(dataItem =>
         header.some(headerItem => Object.keys(dataItem).includes(headerItem))
@@ -85,7 +83,6 @@ function Table({ data, error }) {
         const index = header.indexOf(sortConfig.key);
         const keyA = a[index];
         const keyB = b[index];
-        console.log(keyA)
 
         if (sortConfig.direction === 'asc') {
             return keyA > keyB ? 1 : -1;

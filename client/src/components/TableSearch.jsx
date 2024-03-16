@@ -8,7 +8,6 @@ function TableSearch(props) {
         const value = e.target.value.toLowerCase();
         setSearchValue(e.target.value);
         props.filterData(props.data, value);
-        console.log(value == "")
     };
 
     const handleFormSubmit = (e) => {
