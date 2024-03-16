@@ -49,7 +49,7 @@ function Table({ data, error }) {
     const [filteredData, setFilteredData] = useState(arrangedArrayOfData)
     function applySearch(data, searchQuery) {
         if (searchQuery == "") {
-            setFilteredData(originalData)
+            setSearchedData(originalData)
             return data;
         }
 
