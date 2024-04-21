@@ -1,0 +1,21 @@
+
+{   "header":["name", "Team", "PTS", "TRB", "AST"],
+
+    "data": [
+        {"Player": "Eddie", "Team": "Juul Gang", "Points": 35, "Rebounds": 20, "Placeholder": ""},
+        {"Player": "Marcus", "Team": "Jimmys House", "Points": 10, "Placeholder": "", "Rebounds": 21},
+        {"Dummy":"Nothing"},
+        {"Player": "Eddie", "Team": "Juul Gang", "Points": 35, "Rebounds": 20, "Placeholder": ""},
+        {"Player": "Marcus", "Team": "Jimmys House", "Points": 10, "Placeholder": "", "Rebounds": 21},
+        {"Player": "Eddie", "Team": "Juul Gang", "Points": 35, "Rebounds": 20, "Placeholder": ""},
+        {"Player": "Marcus", "Team": "Jimmys House", "Points": 10, "Placeholder": "", "Rebounds": 21},
+        {"Player": "Eddie", "Team": "Juul Gang", "Points": 35, "Rebounds": 20, "Placeholder": ""},
+        {"Player": "Marcus", "Team": "Jimmys House", "Points": 10, "Placeholder": "", "Rebounds": 21},
+        {"Player": "Eddie", "Team": "Juul Gang", "Points": 35, "Rebounds": 20, "Placeholder": ""},
+        {"Player": "Marcus", "Team": "Jimmys House", "Points": 10, "Placeholder": "", "Rebounds": 21},
+        {"Player": "Eddie", "Team": "Juul Gang", "Points": 35, "Rebounds": 20, "Placeholder": ""},
+        {"Player": "Marcus", "Team": "Jimmys House", "Points": 10, "Placeholder": "", "Rebounds": 21},
+        {"Player": "Eddie", "Team": "Juul Gang", "Points": 35, "Rebounds": 20, "Placeholder": ""},
+        {"Player": "Marcus", "Team": "Jimmys House", "Points": 10, "Placeholder": "", "Rebounds": 21}
+    ]   
+}

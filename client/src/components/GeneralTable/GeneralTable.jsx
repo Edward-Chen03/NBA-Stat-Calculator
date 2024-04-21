@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import TableRow from "./TableRow.jsx"
-import TableHeader from "./TableHeader.jsx";
-import PageDropdown from './PageDropdown.jsx';
-import TableDropdown from './TableDropdown.jsx';
-import TableSearch from './TableSearch.jsx';
-import dataA from "../data.json"
+import TableRow from "../TableRow.jsx"
+import TableHeader from "../TableHeader.jsx";
+import PageDropdown from '../PageDropdown.jsx';
+import TableDropdown from '../TableDropdown.jsx';
+import TableSearch from '../TableSearch.jsx';
+import dataA from "./data.json"
 
 
 // Eventually pagination will be implemented where a GET request ON already sorted data will forgo the need to import all the data, then sort it.  
@@ -13,7 +13,7 @@ import dataA from "../data.json"
 function Table({ data, error }) {
     if (data === null) {
         
-        return <div>Loading... (This may take up to 10 mins)</div>;
+        return <div>Loading...</div>;
     }
 
     const [arrayOfJSON, setJSON] = useState(data);    
@@ -21,8 +21,6 @@ function Table({ data, error }) {
     // data and data formatting
     const [tableType, setTableType] = useState("Table 1")
     const header = dataA["header"];
-
-    console.log(arrayOfJSON)
     
     let arrangedArrayOfData = arrayOfJSON?.filter(dataItem =>
         header.some(headerItem => Object.keys(dataItem).includes(headerItem))
@@ -85,7 +83,6 @@ function Table({ data, error }) {
         const index = header.indexOf(sortConfig.key);
         const keyA = a[index];
         const keyB = b[index];
-        console.log(keyA)
 
         if (sortConfig.direction === 'asc') {
             return keyA > keyB ? 1 : -1;

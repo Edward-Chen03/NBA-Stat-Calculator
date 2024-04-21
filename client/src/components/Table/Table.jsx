@@ -1,33 +1,25 @@
 
-import React, { useState, useEffect } from 'react';
+import React, {useState} from 'react'
 import TableRow from "./TableRow.jsx"
 import TableHeader from "./TableHeader.jsx";
 import PageDropdown from './PageDropdown.jsx';
 import TableDropdown from './TableDropdown.jsx';
 import TableSearch from './TableSearch.jsx';
-import dataA from "../data.json"
+import data from "../../data.json"
 
 
 // Eventually pagination will be implemented where a GET request ON already sorted data will forgo the need to import all the data, then sort it.  
 
-function Table({ data, error }) {
-    if (data === null) {
-        
-        return <div>Loading... (This may take up to 10 mins)</div>;
-    }
-
-    const [arrayOfJSON, setJSON] = useState(data);    
+function Table(props) {
     
     // data and data formatting
     const [tableType, setTableType] = useState("Table 1")
-    const header = dataA["header"];
-
-    console.log(arrayOfJSON)
+    const header = ["name", "AST", "TRB", "Team", "PTS"]
+    const arrayOfJSON = props.data
     
-    let arrangedArrayOfData = arrayOfJSON?.filter(dataItem =>
-        header.some(headerItem => Object.keys(dataItem).includes(headerItem))
-      )?.map(dataItem => header.map(headerItem => dataItem[headerItem])) || [];
-      
+    let arrangedArrayOfData = arrayOfJSON
+    .filter(dataItem => header.some(headerItem => Object.keys(dataItem).includes(headerItem)))
+    .map(dataItem => header.map(headerItem => dataItem[headerItem]));
 
     // pages
     const [rowsPerPage, setRowsPerPage] = useState(5)
@@ -40,13 +32,11 @@ function Table({ data, error }) {
     let firstIndex = (pageNumber-1) * rowsPerPage
     let lastIndex = firstIndex + rowsPerPage
 
-    const originalData = arrangedArrayOfData
 
     // filtering data by search query
     const [filteredData, setFilteredData] = useState(arrangedArrayOfData)
     function filterData(data, searchQuery) {
         if (searchQuery == "") {
-            setFilteredData(originalData)
             return data;
         }
         let result = [];
@@ -101,6 +91,7 @@ function Table({ data, error }) {
     const totalRows = sortedData.length
     const totalPages = Math.ceil(totalRows / rowsPerPage)
     let paginatedData = sortedData.slice(firstIndex, lastIndex + 1) // this will be replaced with a function that takes whatever is neccessary from server
+    // let paginatedData = getData(whatTable?, start_index, end_index, sort_order, sorted_by) 
     
 
     let startPage = Math.max(0, firstIndex + (pageNumber))
@@ -108,7 +99,7 @@ function Table({ data, error }) {
 
     return (
         <>
-        <div className="flex flex-col w-full shadow-md bg-neutral700 border-8 rounded-md">
+        <div className="flex flex-col w-full shadow-md bg-gray-500">
             <div className="flex flex-row justify-end text-xs items-end text-gray-700 uppercase bg-gray-50">
                 <div className="px-2 py-3 mr-auto self-center">
 
@@ -125,8 +116,8 @@ function Table({ data, error }) {
                 <button className='px-2 py-3 self-center' onClick={() => handlePageChange(pageNumber - 1)}> &lt; </button>
                 <button className='px-2 py-3 self-center' onClick={() => handlePageChange(pageNumber + 1)}> &gt; </button>
             </div>
-            <table className="w-full h-fit text-sm text-left rtl:text-right text-black">
-                <thead className="text-xs justify-between text-primary uppercase bg-secondary">
+            <table className="w-full h-fit text-sm text-left rtl:text-right text-gray-500">
+                <thead className="text-xs justify-between text-gray-700 uppercase bg-gray-50">
                     <TableHeader header_data={header} sortConfig={sortConfig} onSort={handleSort}></TableHeader>
                 </thead>
                 <tbody>

@@ -1,6 +1,6 @@
 ## NBA Stat Calculator Website (Deployed) - IN Progress
 
-Link:
+Link: https://nba-stat-calculator-bpkx.onrender.com
 
 ## Features
 

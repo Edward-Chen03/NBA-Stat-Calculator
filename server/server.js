@@ -74,7 +74,7 @@ setInterval(() => {
 
 
 
-// Specific Calculations
+
 
 app.post('/calculate', (req, res) => {
   const { name, calculate } = req.body;
@@ -109,8 +109,3 @@ app.post('/calculate', (req, res) => {
 });
 
 
-
-
-
-
-//create multiple tables and base them on formula
