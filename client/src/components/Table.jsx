@@ -13,7 +13,7 @@ import dataA from "../data.json"
 function Table({ data, error }) {
     if (data === null) {
         
-        return <div>Loading...</div>;
+        return <div>Loading... (This may take up to 10 mins)</div>;
     }
 
     const [arrayOfJSON, setJSON] = useState(data);    
